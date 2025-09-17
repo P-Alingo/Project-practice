@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Kenya Healthcare Design System - Professional Blue Theme */
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 100%;
+    --foreground: 220 26% 14%;
+
+    /* Card & surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 26% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 26% 14%;
+
+    /* Primary healthcare blue */
+    --primary: 210 100% 48%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 210 100% 85%;
+    --primary-dark: 210 100% 35%;
+
+    /* Secondary medical green */
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 142 76% 85%;
+
+    /* Accent healing teal */
+    --accent: 176 68% 42%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 176 68% 85%;
+
+    /* Success, warning, error */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 43 96% 56%;
+    --warning-foreground: 220 26% 14%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Neutral grays */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 210 100% 48%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 48%), hsl(210 100% 35%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 28%));
+    --gradient-accent: linear-gradient(135deg, hsl(176 68% 42%), hsl(176 68% 32%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 48%) 0%, hsl(176 68% 42%) 50%, hsl(142 76% 36%) 100%);
+    --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px rgba(33, 150, 243, 0.08);
+    --shadow-hover: 0 8px 30px rgba(33, 150, 243, 0.15);
+    --shadow-primary: 0 4px 20px rgba(33, 150, 243, 0.25);
+    
+    --radius: 0.5rem;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 26% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 26% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 26% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 210 100% 55%;
+    --primary-foreground: 220 26% 8%;
+    --primary-light: 210 100% 75%;
+    --primary-dark: 210 100% 40%;
+
+    --secondary: 142 76% 42%;
+    --secondary-foreground: 220 26% 8%;
+    --secondary-light: 142 76% 75%;
+
+    --accent: 176 68% 48%;
+    --accent-foreground: 220 26% 8%;
+    --accent-light: 176 68% 75%;
+
+    --success: 142 76% 42%;
+    --success-foreground: 220 26% 8%;
+    --warning: 43 96% 62%;
+    --warning-foreground: 220 26% 8%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 0 0% 98%;
+
+    --muted: 220 26% 15%;
+    --muted-foreground: 220 9% 65%;
+    --border: 220 26% 20%;
+    --input: 220 26% 15%;
+    --ring: 210 100% 55%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(210 100% 55%), hsl(210 100% 40%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 42%), hsl(142 76% 32%));
+    --gradient-accent: linear-gradient(135deg, hsl(176 68% 48%), hsl(176 68% 36%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 55%) 0%, hsl(176 68% 48%) 50%, hsl(142 76% 42%) 100%);
+    --gradient-card: linear-gradient(135deg, rgba(220, 26%, 12%, 0.9), rgba(220, 26%, 10%, 0.7));
+
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.6);
+    --shadow-primary: 0 4px 20px rgba(33, 150, 243, 0.4);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-dark text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-gradient-secondary {
+    @apply bg-gradient-to-r from-secondary to-secondary-light text-secondary-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+  
+  .card-elevated {
+    @apply bg-card/80 backdrop-blur-sm border shadow-card hover:shadow-hover transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .gradient-bg {
+    background: var(--gradient-hero);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+  }
+  
+  .glass-morphism {
+    @apply backdrop-blur-lg bg-white/10 border border-white/20 shadow-xl;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0px); 
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
