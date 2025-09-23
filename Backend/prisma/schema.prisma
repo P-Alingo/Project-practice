@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(cuid())
+  walletAddress     String   @unique
+  email             String?  @unique
+  passwordHash      String?
+  role              UserRole
+  firstName         String
+  lastName          String
+  licenseNumber     String?  // For doctors and pharmacists
+  institutionName   String?  // Hospital/Pharmacy name
+  isVerified        Boolean  @default(false)
+  twoFactorSecret   String?
+  twoFactorEnabled  Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  prescriptionsIssued    Prescription[] @relation("DoctorPrescriptions")
+  prescriptionsDispensed Prescription[] @relation("PharmacistPrescriptions")
+  auditLogs             AuditLog[]
+  drugBatches           DrugBatch[]
+
+  @@map("users")
+}
+
+model Prescription {
+  id                String            @id @default(cuid())
+  blockchainTxHash  String            @unique
+  contractId        String            @unique
+  patientName       String
+  patientId         String
+  doctorId          String
+  pharmacistId      String?
+  drugName          String
+  dosage            String
+  quantity          Int
+  instructions      String
+  qrCodeData        String            @unique
+  status            PrescriptionStatus @default(ISSUED)
+  issuedAt          DateTime          @default(now())
+  dispensedAt       DateTime?
+  expiresAt         DateTime
+  
+  // Relations
+  doctor            User              @relation("DoctorPrescriptions", fields: [doctorId], references: [id])
+  pharmacist        User?             @relation("PharmacistPrescriptions", fields: [pharmacistId], references: [id])
+  auditLogs         AuditLog[]
+
+  @@map("prescriptions")
+}
+
+model DrugBatch {
+  id                String      @id @default(cuid())
+  batchNumber       String      @unique
+  blockchainTxHash  String      @unique
+  contractId        String      @unique
+  drugName          String
+  manufacturerId    String
+  manufacturerName  String
+  productionDate    DateTime
+  expiryDate        DateTime
+  quantity          Int
+  currentLocation   String
+  qrCodeData        String      @unique
+  status            BatchStatus @default(MANUFACTURED)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  // Relations
+  manufacturer      User        @relation(fields: [manufacturerId], references: [id])
+  transfers         BatchTransfer[]
+  auditLogs         AuditLog[]
+
+  @@map("drug_batches")
+}
+
+model BatchTransfer {
+  id                String    @id @default(cuid())
+  batchId           String
+  fromLocation      String
+  toLocation        String
+  transferredBy     String
+  transferredAt     DateTime  @default(now())
+  blockchainTxHash  String    @unique
+  notes             String?
+
+  // Relations
+  batch             DrugBatch @relation(fields: [batchId], references: [id])
+
+  @@map("batch_transfers")
+}
+
+model AuditLog {
+  id                String    @id @default(cuid())
+  userId            String?
+  prescriptionId    String?
+  batchId           String?
+  action            String
+  details           Json
+  ipAddress         String?
+  userAgent         String?
+  blockchainTxHash  String?
+  timestamp         DateTime  @default(now())
+
+  // Relations
+  user              User?         @relation(fields: [userId], references: [id])
+  prescription      Prescription? @relation(fields: [prescriptionId], references: [id])
+  batch             DrugBatch?    @relation(fields: [batchId], references: [id])
+
+  @@map("audit_logs")
+}
+
+enum UserRole {
+  DOCTOR
+  PHARMACIST
+  MANUFACTURER
+  DISTRIBUTOR
+  REGULATOR
+  ADMIN
+  PATIENT
+}
+
+enum PrescriptionStatus {
+  ISSUED
+  VERIFIED
+  DISPENSED
+  EXPIRED
+  CANCELLED
+}
+
+enum BatchStatus {
+  MANUFACTURED
+  IN_TRANSIT
+  DELIVERED
+  DISPENSED
+  RECALLED
+}
